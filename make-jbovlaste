@@ -1,0 +1,12 @@
+#!/bin/bash
+
+(
+  echo "#-*- coding:utf-8 -*-"
+  echo; echo definitions = \(
+  cat ~/src/lojban/vlasisku/vlasisku/data/jbovlaste.xml | grep '<valsi' | \
+    sed -r -e 's%^.* word="([^"]*)".*<definition>(.*)</definition>.*%\1@\2%' \
+           -e 's/[$_{}]//g' \
+           -e 's/"/\\"/g' \
+           -e 's/^(.*)@(.*)$/("\1","\2"),/'
+    echo \)
+) > jbovlaste.py
